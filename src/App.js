@@ -3,6 +3,7 @@ import './App.css';
 
 import React from 'react';
 import SongSearchBar from "./SongSearchBar";
+import SelectedSongs from "./SelectedSongs";
 
 class App extends React.Component {
     constructor(props) {
@@ -10,6 +11,7 @@ class App extends React.Component {
         this.handleClick = this.handleClick.bind(this);
         this.state = {
             songs: [],
+            selectedSongs: [],
         }
     }
 
@@ -29,7 +31,7 @@ class App extends React.Component {
 
     // handles add song click
     handleClick(id) {
-        console.log(id);
+        this.setState({selectedSongs: this.state.selectedSongs + id});
     }
 
     render() {
@@ -41,6 +43,7 @@ class App extends React.Component {
                     </p>
                 </header>
                 <SongSearchBar songs={this.state.songs} onClick={(id) => this.handleClick(id)}/>
+                <SelectedSongs selectedSongs={this.state.selectedSongs}/>
             </div>
         );
     }
