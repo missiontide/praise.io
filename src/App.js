@@ -1,3 +1,4 @@
+import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 import SongSearchBar from "./SongSearchBar";
 
@@ -9,8 +10,8 @@ function App() {
                 <p>
                     Search for a worship song:
                 </p>
-                <SongSearchBar />
             </header>
+            <SongSearchBar />
         </div>
     );
 }

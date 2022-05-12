@@ -1,5 +1,6 @@
-import './SongSearchBar.css';
 import React from 'react';
+import { Table, Button } from "react-bootstrap";
+import './SongSearchBar.css';
 
 class SongSearchBar extends React.Component {
     constructor(props) {
@@ -33,26 +34,26 @@ class SongSearchBar extends React.Component {
 
     render() {
 
-        let songsToDisplay;
+        let songsToDisplay = [];
 
         if (this.state.searchInput.length > 0) {
+            // match song titles/artists with search input
             songsToDisplay = this.state.songs.filter((song) => {
-                return song.title.toLowerCase().match(this.state.searchInput.toLowerCase());
+                return song.title.toLowerCase().match(this.state.searchInput.toLowerCase())
+                    || song.artist.toLowerCase().match(this.state.searchInput.toLowerCase());
             })
-        } else {
-            songsToDisplay = this.state.songs;
         }
 
         return (
             <div>
                 <input
                     type="search"
-                    placeholder="Search here"
+                    placeholder="type a song or artist"
                     onChange={this.handleChange}
                     value={this.state.searchInput} />
 
-                {this.state.searchInput !== "" &&
-                    <table>
+                {songsToDisplay.length !== 0 &&
+                    <Table striped bordered hover>
                         <thead>
                         <tr>
                             <th>Song</th>
@@ -65,11 +66,12 @@ class SongSearchBar extends React.Component {
                                 <tr key={index}>
                                     <td>{song.title}</td>
                                     <td>{song.artist}</td>
+                                    <td><Button variant="warning">+</Button></td>
                                 </tr>
                             )
                         })}
                         </tbody>
-                    </table>
+                    </Table>
                 }
             </div>
         )
