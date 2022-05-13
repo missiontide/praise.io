@@ -10,6 +10,7 @@ class App extends React.Component {
         super(props);
         this.handleAdd = this.handleAdd.bind(this);
         this.handleRemove = this.handleRemove.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
         this.state = {
             songs: [],
             selectedSongs: [],
@@ -52,6 +53,9 @@ class App extends React.Component {
     handleShow() { this.setState({showCanvas: true})};
     handleHide() { this.setState({showCanvas: false})};
 
+    handleSubmit() {
+        console.log('make slides');
+    }
 
     render() {
         return (
@@ -67,6 +71,7 @@ class App extends React.Component {
                     onShow={() => this.handleShow()}
                     onHide={() => this.handleHide()}
                     show={this.state.showCanvas}
+                    makeSlides={() => this.handleSubmit()}
                 />
                 <SongSearchBar
                     songs={this.state.songs}

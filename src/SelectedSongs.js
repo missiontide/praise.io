@@ -34,6 +34,13 @@ class SelectedSongs extends React.Component {
                             </ListGroup>
                         </Card>
 
+                        <Button variant="primary"
+                                className="float-end fixed-bottom position-absolute"
+                                onClick={() => this.props.makeSlides()}
+                        >
+                            Make Slides
+                        </Button>
+
                     </Offcanvas.Body>
                 </Offcanvas>
             </>
