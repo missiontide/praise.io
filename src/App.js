@@ -4,6 +4,7 @@ import './App.css';
 import React from 'react';
 import SongSearchBar from "./SongSearchBar";
 import SelectedSongs from "./SelectedSongs";
+import makeSlides from "./makeSlides";
 
 class App extends React.Component {
     constructor(props) {
@@ -54,7 +55,7 @@ class App extends React.Component {
     handleHide() { this.setState({showCanvas: false})};
 
     handleSubmit() {
-        console.log('make slides');
+        makeSlides(this.state.selectedSongs);
     }
 
     render() {
