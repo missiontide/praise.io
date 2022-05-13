@@ -1,30 +1,39 @@
 import React from 'react';
-import { Offcanvas, Button } from "react-bootstrap";
+import { Offcanvas, Button, Card, ListGroup } from "react-bootstrap";
 
 class SelectedSongs extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            show: false,
-        }
-    }
-
-    handleClose = () => this.setState({show:false});
-    handleShow = () => this.setState({show: true});
 
     render() {
         return (
             <>
-                <Button variant="primary" onClick={this.handleShow}>
-                    Selected Songs
+                <Button variant="primary" onClick={this.props.onShow}>
+                    Make Slides
                 </Button>
 
-                <Offcanvas show={this.state.show} onHide={this.handleClose}>
+                <Offcanvas show={this.props.show} onHide={this.props.onHide}>
                     <Offcanvas.Header closeButton>
-                        <Offcanvas.Title>Offcanvas</Offcanvas.Title>
+                        <Offcanvas.Title>Slide Maker</Offcanvas.Title>
                     </Offcanvas.Header>
                     <Offcanvas.Body>
-                        Song ids selected: {this.props.selectedSongs}
+                        <Card style={{ width: '18rem' }}>
+                            <Card.Header>{this.props.selectedSongs.length > 0 ? "Selected Songs" : "Select a song"}</Card.Header>
+                            <ListGroup variant="flush">
+                                {this.props.selectedSongs.map((song, index) => {
+                                    return (
+                                        <ListGroup.Item key={index + "-" + song.id}>
+                                            {song.title} - {song.artist}
+                                            <Button
+                                                variant="outline-danger" size="sm" className="float-sm-end"
+                                                onClick={() => this.props.onClick(index)}
+                                            >
+                                                x
+                                            </Button>
+                                        </ListGroup.Item>
+                                    )
+                                })}
+                            </ListGroup>
+                        </Card>
+
                     </Offcanvas.Body>
                 </Offcanvas>
             </>

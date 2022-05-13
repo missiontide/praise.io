@@ -8,10 +8,12 @@ import SelectedSongs from "./SelectedSongs";
 class App extends React.Component {
     constructor(props) {
         super(props);
-        this.handleClick = this.handleClick.bind(this);
+        this.handleAdd = this.handleAdd.bind(this);
+        this.handleRemove = this.handleRemove.bind(this);
         this.state = {
             songs: [],
             selectedSongs: [],
+            showCanvas: false,
         }
     }
 
@@ -30,9 +32,26 @@ class App extends React.Component {
     }
 
     // handles add song click
-    handleClick(id) {
-        this.setState({selectedSongs: this.state.selectedSongs + id});
+    handleAdd(song) {
+        this.setState({
+            selectedSongs: this.state.selectedSongs.concat(song),
+            showCanvas: true
+        });
     }
+
+    // handles selected song remove click
+    handleRemove(idx) {
+        const selectedSongs = this.state.selectedSongs.filter((_, i) => {return i !== idx});
+
+        this.setState({
+            selectedSongs: selectedSongs,
+            showCanvas: selectedSongs.length !== 0,
+        });
+    }
+
+    handleShow() { this.setState({showCanvas: true})};
+    handleHide() { this.setState({showCanvas: false})};
+
 
     render() {
         return (
@@ -42,8 +61,17 @@ class App extends React.Component {
                         Search for a worship song:
                     </p>
                 </header>
-                <SongSearchBar songs={this.state.songs} onClick={(id) => this.handleClick(id)}/>
-                <SelectedSongs selectedSongs={this.state.selectedSongs}/>
+                <SelectedSongs
+                    selectedSongs={this.state.selectedSongs}
+                    onClick={(idx) => this.handleRemove(idx)}
+                    onShow={() => this.handleShow()}
+                    onHide={() => this.handleHide()}
+                    show={this.state.showCanvas}
+                />
+                <SongSearchBar
+                    songs={this.state.songs}
+                    onClick={(song) => this.handleAdd(song)}
+                />
             </div>
         );
     }

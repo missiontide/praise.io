@@ -54,7 +54,7 @@ class SongSearchBar extends React.Component {
                                     <td>{song.artist}</td>
                                     <td><AddSongButton
                                         value={song.id}
-                                        onClick={() => this.props.onClick(song.id)}
+                                        onClick={() => this.props.onClick(song)}
                                     /></td>
                                 </tr>
                             )
