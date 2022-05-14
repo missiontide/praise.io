@@ -10,10 +10,25 @@ const app = express();
 app.use(cors());
 
 // importing JSON data from songs.js
-const data = require("./songs");
+// const data = require("./songs");
+
+// mongoDB connection settings
+const { MongoClient, ServerApiVersion } = require('mongodb');
+const uri = require("./privateServerInfo");
+const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
+
 // creating route to make request to server for API
 app.get("/songs", function(req, res) {
-    res.json(data);
+    client.connect(err => {
+        const collection = client.db("praisedb").collection("songs");
+        // perform actions on the collection object
+        collection.find().toArray(function(err, result) {
+            if (err) throw err;
+            res.json(result);
+
+            client.close();
+        });
+    });
 })
 
 // app is listening on port 5000
