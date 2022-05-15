@@ -14,6 +14,7 @@ const data = require("./songs");
 
 // mongoDB connection settings
 const { MongoClient, ServerApiVersion } = require('mongodb');
+const assert = require('assert');
 const uri = require("./privateServerInfo");
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
 
@@ -22,7 +23,7 @@ app.get("/songs", function(req, res) {
     client.connect(err => {
         const collection = client.db("praisedb").collection("songs");
         // perform actions on the collection object
-        collection.find().toArray(function(err, result) {
+        collection.find().project({id:1, title:1, artist:1}).toArray(function(err, result) {
             if (err) throw err;
             res.json(result);
 
