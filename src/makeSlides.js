@@ -1,4 +1,6 @@
 import PptxGenJS from "pptxgenjs";
+import { titleSlideStyle, lyricSlideStyle } from './slidesStyles.js'
+
 
 async function makeSlides(selectedSongs) {
     // get lyrics
@@ -23,12 +25,12 @@ async function makeSlides(selectedSongs) {
     orderedSongLyrics.forEach(songLyric => {
         // add song title
         let slide = pres.addSlide();
-        slide.addText(songLyric.title);
+        slide.addText(songLyric.title, titleSlideStyle);
 
         // add song lyrics
         songLyric['lyrics'].forEach(lyric => {
             let slide = pres.addSlide();
-            slide.addText(lyric);
+            slide.addText(lyric, lyricSlideStyle);
         })
     })
 
