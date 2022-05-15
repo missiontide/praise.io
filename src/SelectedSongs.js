@@ -4,6 +4,28 @@ import { Offcanvas, Button, Card, ListGroup } from "react-bootstrap";
 class SelectedSongs extends React.Component {
 
     render() {
+        let makeSlidesButton;
+        console.log(this.props.slidesCreated)
+        if (this.props.slidesCreated === false) {
+            makeSlidesButton = (
+                <Button variant="primary"
+                        className="float-end fixed-bottom position-absolute"
+                        onClick={() => this.props.makeSlides()}
+                >
+                    Make Slides
+                </Button>
+            );
+        } else {
+            makeSlidesButton = (
+                <Button variant="success"
+                        className="float-end fixed-bottom position-absolute"
+                        disabled
+                >
+                    Slides Downloaded!
+                </Button>
+            );
+        }
+
         return (
             <>
                 <Button variant="primary" onClick={this.props.onShow}>
@@ -34,12 +56,7 @@ class SelectedSongs extends React.Component {
                             </ListGroup>
                         </Card>
 
-                        <Button variant="primary"
-                                className="float-end fixed-bottom position-absolute"
-                                onClick={() => this.props.makeSlides()}
-                        >
-                            Make Slides
-                        </Button>
+                        {makeSlidesButton}
 
                     </Offcanvas.Body>
                 </Offcanvas>

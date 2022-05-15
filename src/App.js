@@ -5,6 +5,7 @@ import React from 'react';
 import SongSearchBar from "./SongSearchBar";
 import SelectedSongs from "./SelectedSongs";
 import makeSlides from "./makeSlides";
+import { ProgressBar } from "react-bootstrap";
 
 class App extends React.Component {
     constructor(props) {
@@ -16,6 +17,8 @@ class App extends React.Component {
             songs: [],
             selectedSongs: [],
             showCanvas: false,
+            loading: false,
+            slidesCreated: false,
         }
     }
 
@@ -37,7 +40,8 @@ class App extends React.Component {
     handleAdd(song) {
         this.setState({
             selectedSongs: this.state.selectedSongs.concat(song),
-            showCanvas: true
+            showCanvas: true,
+            slidesCreated: false, // when a change occurs, re-enable the create slides button
         });
     }
 
@@ -48,6 +52,7 @@ class App extends React.Component {
         this.setState({
             selectedSongs: selectedSongs,
             showCanvas: selectedSongs.length !== 0,
+            slidesCreated: false, // when a change occurs, re-enable the create slides button
         });
     }
 
@@ -56,12 +61,23 @@ class App extends React.Component {
 
     // Make slides
     handleSubmit() {
-        makeSlides(this.state.selectedSongs);
+        this.setState({loading:true});
+        makeSlides(this.state.selectedSongs).finally(() => {
+                this.setState({loading:false, slidesCreated: true})
+        });
     }
 
     render() {
         return (
             <div className="App">
+                {this.state.loading && (
+                    <div id="loadingOverlay">
+                        <div>
+                            <h3 class="loadingText">Creating worship slides...</h3>
+                            <ProgressBar animated now={65}/>
+                        </div>
+                    </div>)
+                }
                 <header className="App-header">
                     <p>
                         Search for a worship song:
@@ -74,6 +90,7 @@ class App extends React.Component {
                     onHide={() => this.handleHide()}
                     show={this.state.showCanvas}
                     makeSlides={() => this.handleSubmit()}
+                    slidesCreated={this.state.slidesCreated}
                 />
                 <SongSearchBar
                     songs={this.state.songs}
