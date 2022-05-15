@@ -15,7 +15,7 @@ export const lyricSlideStyle = {
     h: "100%",
     align: "center",
     valign: "middle",
-    fontSize: 40,
+    fontSize: 35,
     fontFace: 'Arial',
     fit: "shrink",
     isTextBox: true,

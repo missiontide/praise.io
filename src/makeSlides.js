@@ -24,12 +24,13 @@ async function makeSlides(selectedSongs) {
 
     orderedSongLyrics.forEach(songLyric => {
         // add song title
-        let slide = pres.addSlide();
+        pres.addSection({ title: songLyric.title})
+        let slide = pres.addSlide({ sectionTitle: songLyric.title});
         slide.addText(songLyric.title, titleSlideStyle);
 
         // add song lyrics
         songLyric['lyrics'].forEach(lyric => {
-            let slide = pres.addSlide();
+            let slide = pres.addSlide({ sectionTitle: songLyric.title});
             slide.addText(lyric, lyricSlideStyle);
         })
     })
