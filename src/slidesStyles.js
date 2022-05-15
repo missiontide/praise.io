@@ -3,7 +3,9 @@ export const titleSlideStyle = {
     h: "100%",
     align: "center",
     valign: "middle",
-    fontSize: 100,
+    fontSize: 65,
+    fontFace: 'Century Gothic',
+    bold: true,
     fit: "shrink",
     isTextBox: true,
 };
@@ -14,6 +16,7 @@ export const lyricSlideStyle = {
     align: "center",
     valign: "middle",
     fontSize: 40,
+    fontFace: 'Arial',
     fit: "shrink",
     isTextBox: true,
 };
