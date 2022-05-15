@@ -5,7 +5,7 @@ import React from 'react';
 import SongSearchBar from "./SongSearchBar";
 import SelectedSongs from "./SelectedSongs";
 import makeSlides from "./makeSlides";
-import { ProgressBar } from "react-bootstrap";
+import {ProgressBar, Toast, ToastContainer} from "react-bootstrap";
 
 class App extends React.Component {
     constructor(props) {
@@ -19,6 +19,7 @@ class App extends React.Component {
             showCanvas: false,
             loading: false,
             slidesCreated: false,
+            showError: false,
         }
     }
 
@@ -38,11 +39,16 @@ class App extends React.Component {
 
     // handles add song click
     handleAdd(song) {
-        this.setState({
-            selectedSongs: this.state.selectedSongs.concat(song),
-            showCanvas: true,
-            slidesCreated: false, // when a change occurs, re-enable the create slides button
-        });
+        // too many songs added -- show error Toast
+        if (this.state.selectedSongs.length >= 10) {
+            this.setState({showError: true})
+        } else {
+            this.setState({
+                selectedSongs: this.state.selectedSongs.concat(song),
+                showCanvas: true,
+                slidesCreated: false, // when a change occurs, re-enable the create slides button
+            });
+        }
     }
 
     // handles selected song remove click
@@ -78,6 +84,26 @@ class App extends React.Component {
                         </div>
                     </div>)
                 }
+                <ToastContainer position="top-end">
+                    <Toast
+                        onClose={() => this.setState({showError:false})}
+                        show={this.state.showError}
+                        delay={3000}
+                        autohide>
+                        <Toast.Header>
+                            <img
+                                src="holder.js/20x20?text=%20"
+                                className="rounded me-2"
+                                alt=""
+                            />
+                            <strong className="me-auto">Error</strong>
+                            <small></small>
+                        </Toast.Header>
+                        <Toast.Body>Maximum songs reached.</Toast.Body>
+                    </Toast>
+                </ToastContainer>
+
+
                 <header className="App-header">
                     <p>
                         Search for a worship song:

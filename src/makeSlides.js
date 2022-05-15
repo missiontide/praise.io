@@ -22,17 +22,31 @@ async function makeSlides(selectedSongs) {
     // generate slides using pptxgenjs
     let pres = new PptxGenJS();
 
+    // duplicate handling -- for preserving order
+    let usedSongTitles = [];
+    const countOccurrences = (arr, val) => arr.reduce((a, v) => (v === val ? a + 1 : a), 0);
+
     orderedSongLyrics.forEach(songLyric => {
         // add song title
-        pres.addSection({ title: songLyric.title})
-        let slide = pres.addSlide({ sectionTitle: songLyric.title});
+        const songTitle = songLyric.title;
+        let sectionTitle = songTitle;
+
+        // duplicate handling ... same title section will ruin order
+        let occurences = countOccurrences(usedSongTitles, songTitle);
+        if (occurences > 0) {sectionTitle = sectionTitle + " (" + occurences.toString() + ")"}
+
+        pres.addSection({ title: sectionTitle})
+        let slide = pres.addSlide({ sectionTitle: songTitle});
         slide.addText(songLyric.title, titleSlideStyle);
 
         // add song lyrics
         songLyric['lyrics'].forEach(lyric => {
-            let slide = pres.addSlide({ sectionTitle: songLyric.title});
+            let slide = pres.addSlide({ sectionTitle: sectionTitle});
             slide.addText(lyric, lyricSlideStyle);
         })
+
+        // duplicate handling
+        usedSongTitles.push(songTitle);
     })
 
     // save the presentation
