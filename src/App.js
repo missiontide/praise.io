@@ -54,6 +54,7 @@ class App extends React.Component {
     handleShow() { this.setState({showCanvas: true})};
     handleHide() { this.setState({showCanvas: false})};
 
+    // Make slides
     handleSubmit() {
         makeSlides(this.state.selectedSongs);
     }

@@ -1,24 +1,39 @@
-import pptxgen from "pptxgenjs";
+import PptxGenJS from "pptxgenjs";
 
-function makeSlides(selectedSongs) {
-    console.log(JSON.stringify(selectedSongs));
-    const songLyrics = getSongLyrics(selectedSongs);
+async function makeSlides(selectedSongs) {
+    // get lyrics
+    const selectedSongIds = [];
+    selectedSongs.forEach(song => selectedSongIds.push(song.id))
 
-    // let pres = new pptxgen();
+    const response = await fetch("/lyrics?songs=" + selectedSongIds.toString());
+    const selectedSongLyrics = await response.json();
 
-    songLyrics.forEach(songLyric => {
-        // let slide = pptx.addSlide();
-
-        // slide.addText()
-
+    // DB pulls songs in id order
+    // need to re-order according to user's selection
+    const orderedSongLyrics = [];
+    selectedSongIds.forEach(songId => {
+        orderedSongLyrics.push(
+            selectedSongLyrics.find(song => song.id === songId)
+        )
     });
 
-    // pptx.writeFile({ fileName: 'praiseio-worship-slides' });
-}
+    // generate slides using pptxgenjs
+    let pres = new PptxGenJS();
 
-function getSongLyrics() {
+    orderedSongLyrics.forEach(songLyric => {
+        // add song title
+        let slide = pres.addSlide();
+        slide.addText(songLyric.title);
 
-    return [];
+        // add song lyrics
+        songLyric['lyrics'].forEach(lyric => {
+            let slide = pres.addSlide();
+            slide.addText(lyric);
+        })
+    })
+
+    // save the presentation
+    await pres.writeFile({fileName: 'praiseio-worship-slides.pptx'});
 }
 
 export default makeSlides;

@@ -10,7 +10,7 @@ const app = express();
 app.use(cors());
 
 // importing JSON data from songs.js
-// const data = require("./songs");
+const data = require("./songs");
 
 // mongoDB connection settings
 const { MongoClient, ServerApiVersion } = require('mongodb');
@@ -23,6 +23,29 @@ app.get("/songs", function(req, res) {
         const collection = client.db("praisedb").collection("songs");
         // perform actions on the collection object
         collection.find().toArray(function(err, result) {
+            if (err) throw err;
+            res.json(result);
+
+            client.close();
+        });
+    });
+})
+
+app.get("/lyrics", (req, res) => {
+    // parse query for selected song ids
+    if (req.query.songs === undefined) {
+        res.status(404).end();
+        return;
+    }
+    const selectedSongIds = req.query.songs.split(",").map(Number);
+
+    // get selected songs from mongoDB
+    client.connect(err => {
+        const collection = client.db("praisedb").collection("songs");
+        // perform actions on the collection object
+        collection.find(
+            {id: {$in : selectedSongIds}}
+        ).toArray(function(err, result) {
             if (err) throw err;
             res.json(result);
 
