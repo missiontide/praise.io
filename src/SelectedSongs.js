@@ -5,19 +5,30 @@ class SelectedSongs extends React.Component {
 
     render() {
         let makeSlidesButton;
-        console.log(this.props.slidesCreated)
-        if (this.props.slidesCreated === false) {
+        const noSongsSelected = this.props.selectedSongs.length === 0
+        // slidesCreated is an App state set when a ppt has just been made
+        // -- disable button until user makes a change
+        if (this.props.slidesCreated === false && !noSongsSelected) {
             makeSlidesButton = (
-                <Button variant="primary"
+                <Button variant="primary" style={{height: '6rem'}}
                         className="float-end fixed-bottom position-absolute"
                         onClick={() => this.props.makeSlides()}
                 >
                     Make Slides
                 </Button>
             );
-        } else {
+        } else if (this.props.slidesCreated === false && noSongsSelected){
             makeSlidesButton = (
-                <Button variant="success"
+                <Button variant="primary" style={{height: '6rem'}}
+                        className="float-end fixed-bottom position-absolute"
+                        disabled
+                >
+                    Make Slides
+                </Button>
+            );
+        } else if (this.props.slidesCreated === true) {
+            makeSlidesButton = (
+                <Button variant="success" style={{height: '6rem'}}
                         className="float-end fixed-bottom position-absolute"
                         disabled
                 >
@@ -28,7 +39,7 @@ class SelectedSongs extends React.Component {
 
         return (
             <>
-                <Button variant="primary" onClick={this.props.onShow}>
+                <Button className="makeSlidesButton" variant="dark" onClick={this.props.onShow}>
                     Make Slides
                 </Button>
 
@@ -37,8 +48,8 @@ class SelectedSongs extends React.Component {
                         <Offcanvas.Title>Slide Maker</Offcanvas.Title>
                     </Offcanvas.Header>
                     <Offcanvas.Body>
-                        <Card style={{ width: '18rem' }}>
-                            <Card.Header>{this.props.selectedSongs.length > 0 ? "Selected Songs" : "Select a song"}</Card.Header>
+                        <Card style={{ width: '22.5rem' }}>
+                            <Card.Header>{noSongsSelected ? "Selected Songs" : "Select a song"}</Card.Header>
                             <ListGroup variant="flush">
                                 {this.props.selectedSongs.map((song, index) => {
                                     return (
@@ -55,7 +66,12 @@ class SelectedSongs extends React.Component {
                                 })}
                             </ListGroup>
                         </Card>
-
+                        <Button variant="dark"
+                                style={{"margin-top": "10px", "margin-left": "12rem"}}
+                                onClick={this.props.onHide}
+                        >
+                            {noSongsSelected ? "Add a song >" : "Add more songs >"}
+                        </Button>
                         {makeSlidesButton}
 
                     </Offcanvas.Body>

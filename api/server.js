@@ -23,7 +23,11 @@ app.get("/songs", function(req, res) {
     client.connect(err => {
         const collection = client.db("praisedb").collection("songs");
         // perform actions on the collection object
-        collection.find().project({id:1, title:1, artist:1}).toArray(function(err, result) {
+        collection.find().project(
+            {id:1, title:1, artist:1}
+        ).sort(
+            {title: 1, artist: 1}
+        ).toArray(function(err, result) {
             if (err) throw err;
             res.json(result);
 

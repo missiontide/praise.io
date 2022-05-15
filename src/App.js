@@ -1,4 +1,5 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
+import logo from './logo.png';
 import './App.css';
 
 import React from 'react';
@@ -76,6 +77,9 @@ class App extends React.Component {
     render() {
         return (
             <div className="App">
+                <p className="signature">
+                    made by <a href="https://www.missiontide.com" target="_blank" rel="noreferrer">@missiontide</a>
+                </p>
                 {this.state.loading && (
                     <div id="loadingOverlay">
                         <div>
@@ -105,9 +109,7 @@ class App extends React.Component {
 
 
                 <header className="App-header">
-                    <p>
-                        Search for a worship song:
-                    </p>
+                    <img src={logo} className="App-logo" alt="logo" />
                 </header>
                 <SelectedSongs
                     selectedSongs={this.state.selectedSongs}

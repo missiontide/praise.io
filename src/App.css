@@ -3,11 +3,20 @@
 }
 
 .App-header {
-  margin-top: 100px;
+  margin-top: 75px;
+  margin-bottom: 75px;
   display: flex;
   justify-content: center;
   font-size: calc(10px + 2vmin);
 }
+
+.signature {
+  position: absolute;
+  top: 5px;
+  right: 15px;
+  font-size: 15px;
+}
+.signature a { color: black}
 
 #loadingOverlay {
   position: fixed; /* Sit on top of the page content */
@@ -39,4 +48,10 @@
   left: 50%;
   transform: translate(-50%,-50%);
   -ms-transform: translate(-50%,-50%);
+}
+
+.makeSlidesButton {
+  position: absolute;
+  top: 15px;
+  left: 20px;
 }

@@ -32,12 +32,12 @@ async function makeSlides(selectedSongs) {
         let sectionTitle = songTitle;
 
         // duplicate handling ... same title section will ruin order
-        let occurences = countOccurrences(usedSongTitles, songTitle);
-        if (occurences > 0) {sectionTitle = sectionTitle + " (" + occurences.toString() + ")"}
+        let occurrences = countOccurrences(usedSongTitles, songTitle);
+        if (occurrences > 0) {sectionTitle = sectionTitle + " (" + occurrences.toString() + ")"}
 
         pres.addSection({ title: sectionTitle})
-        let slide = pres.addSlide({ sectionTitle: songTitle});
-        slide.addText(songLyric.title, titleSlideStyle);
+        let slide = pres.addSlide({ sectionTitle: sectionTitle});
+        slide.addText(songTitle, titleSlideStyle);
 
         // add song lyrics
         songLyric['lyrics'].forEach(lyric => {

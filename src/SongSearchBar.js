@@ -1,6 +1,7 @@
 import React from 'react';
 import { Table, Button } from "react-bootstrap";
 import './SongSearchBar.css';
+import dropShadow from "./dropshadow.png";
 
 class SongSearchBar extends React.Component {
     constructor(props) {
@@ -32,18 +33,28 @@ class SongSearchBar extends React.Component {
 
         return (
             <div>
-                <input
-                    type="search"
-                    placeholder="type a song or artist"
-                    onChange={this.handleChange}
-                    value={this.state.searchInput} />
+                <div>
+                    <input
+                        className="songSearchBar"
+                        type="search"
+                        placeholder="type a song or artist..."
+                        onChange={this.handleChange}
+                        value={this.state.searchInput}
+                        autoFocus={true}
+                    />
+                </div>
+                <div>
+                    <img src={dropShadow} alt="drop shadow" />
+                </div>
+
 
                 {songsToDisplay.length !== 0 &&
-                    <Table striped bordered hover>
+                    (<><Table striped borderless responsive="sm">
                         <thead>
                         <tr>
                             <th>Song</th>
                             <th>Artist</th>
+                            <th></th>
                         </tr>
                         </thead>
                         <tbody>
@@ -61,6 +72,8 @@ class SongSearchBar extends React.Component {
                         })}
                         </tbody>
                     </Table>
+                    <img src={dropShadow} alt="drop shadow" />
+                    </>)
                 }
             </div>
         )
@@ -69,7 +82,7 @@ class SongSearchBar extends React.Component {
 
 function AddSongButton(props) {
     return (
-        <Button variant="warning" onClick={props.onClick}>+</Button>
+        <Button variant="dark" onClick={props.onClick}>+</Button>
     )
 }
 

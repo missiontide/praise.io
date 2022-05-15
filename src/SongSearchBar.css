@@ -1,6 +1,47 @@
+input.songSearchBar {
+    width: 652px;
+    height: 69px;
+    font-size: 21px;
+    font-weight: bold;
+    border: none;
+    border-radius: 40px;
+    padding-left: 42px;
+    padding-right: 20px;
+    /*box-shadow: 5px 19px 15px -16px #111111;*/
+}
+
 .table {
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 20px;
-    width: 75%;
+    margin: 20px auto 0;
+    width: 652px;
+    vertical-align: middle;
+    font-size: 17px;
+}
+
+.table>:not(caption)>*>* {
+    background-color: white;
+}
+
+.table-striped>tbody>tr:nth-of-type(odd)>* {
+    --bs-table-accent-bg: #f9eddc;
+    color: var(--bs-table-striped-color);
+}
+
+/* top-left border-radius */
+.table tr:first-child th:first-child {
+    border-top-left-radius: 40px;
+}
+
+/* top-right border-radius */
+.table tr:first-child th:last-child {
+    border-top-right-radius: 40px;
+}
+
+/* bottom-left border-radius */
+.table tr:last-child td:first-child {
+    border-bottom-left-radius: 40px;
+}
+
+/* bottom-right border-radius */
+.table tr:last-child td:last-child {
+    border-bottom-right-radius: 40px;
 }
