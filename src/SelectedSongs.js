@@ -66,12 +66,15 @@ class SelectedSongs extends React.Component {
                                 })}
                             </ListGroup>
                         </Card>
-                        <Button variant="dark"
-                                style={{"margin-top": "10px", "margin-left": "12rem"}}
-                                onClick={this.props.onHide}
-                        >
-                            {noSongsSelected ? "Add a song >" : "Add more songs >"}
-                        </Button>
+                        {this.props.selectedSongs.length < 10 &&
+                            <Button variant="dark"
+                                    style={{"margin-top": "10px", "margin-left": "12rem"}}
+                                    onClick={this.props.onHide}
+                            >
+                                {noSongsSelected ? "Add a song >" : "Add more songs >"}
+                            </Button>
+                        }
+
                         {makeSlidesButton}
 
                     </Offcanvas.Body>
