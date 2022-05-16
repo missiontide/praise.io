@@ -9,8 +9,8 @@ const app = express();
 // initializing cors middleware for all routes
 app.use(cors());
 
-// importing JSON data from songs.js
-const songsJson = require("./songs");
+// importing JSON data from songs.json
+const songsJson = require("./songs.json");
 
 // creating route to make request to server for API
 app.get("/songs", function(req, res) {
