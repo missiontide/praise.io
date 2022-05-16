@@ -10,16 +10,20 @@ const app = express();
 app.use(cors());
 
 // importing JSON data from songs.js
-const data = require("./songs");
+const songsJson = require("./songs");
+
+// creating route to make request to server for API
+app.get("/songs", function(req, res) {
+    res.json(songsJson);
+})
 
 // mongoDB connection settings
 const { MongoClient, ServerApiVersion, ObjectId} = require('mongodb');
-const assert = require('assert');
 const uri = require("./privateServerInfo");
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
 
 // creating route to make request to server for API
-app.get("/songs", function(req, res) {
+app.get("/songsfromdb", function(req, res) {
     client.connect(err => {
         const collection = client.db("praisedb").collection("songs");
         // perform actions on the collection object

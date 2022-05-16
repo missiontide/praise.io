@@ -50,32 +50,32 @@ class SongSearchBar extends React.Component {
 
                 {songsToDisplay.length !== 0 &&
                     (<>
-                        <div className="tableWrapper">
+                    <div className="tableWrapper">
                         <Table striped borderless>
-                        <thead>
-                        <tr>
-                            <th>Song</th>
-                            <th>Artist</th>
-                            <th></th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        {songsToDisplay.map((song, index) => {
-                            return (
-                                <tr key={index}>
-                                    <td>{song.title}</td>
-                                    <td>{song.artist}</td>
-                                    <td><AddSongButton
-                                        value={song.id}
-                                        onClick={() => this.props.onClick(song)}
-                                    /></td>
-                                </tr>
-                            )
-                        })}
-                        </tbody>
-                    </Table>
-                    </div>
+                            <thead>
+                            <tr>
+                                <th>Song</th>
+                                <th>Artist</th>
+                                <th></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {songsToDisplay.map((song, index) => {
+                                return (
+                                    <tr key={index}>
+                                        <td>{song.title}</td>
+                                        <td>{song.artist}</td>
+                                        <td><AddSongButton
+                                            value={song.id}
+                                            onClick={() => this.props.onClick(song)}
+                                        /></td>
+                                    </tr>
+                                )
+                            })}
+                            </tbody>
+                        </Table>
                     <img src={dropShadow} alt="drop shadow" />
+                    </div>
                     </>)
                 }
             </div>
