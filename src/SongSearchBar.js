@@ -49,7 +49,9 @@ class SongSearchBar extends React.Component {
 
 
                 {songsToDisplay.length !== 0 &&
-                    (<><Table striped borderless responsive="sm">
+                    (<>
+                        <div className="tableWrapper">
+                        <Table striped borderless>
                         <thead>
                         <tr>
                             <th>Song</th>
@@ -72,6 +74,7 @@ class SongSearchBar extends React.Component {
                         })}
                         </tbody>
                     </Table>
+                    </div>
                     <img src={dropShadow} alt="drop shadow" />
                     </>)
                 }

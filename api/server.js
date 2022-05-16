@@ -42,11 +42,11 @@ app.get("/lyrics", (req, res) => {
         res.status(404).end();
         return;
     }
-    console.log(req.query.songs);
+
+    // converting _ids to ObjectIds for mongo .find lookup
     const selectedSongIds = req.query.songs.split(",");
-    console.log(selectedSongIds);
     const selectedSongObjIds = selectedSongIds.map(id => new ObjectId(id));
-    console.log(selectedSongObjIds);
+
     // get selected songs from mongoDB
     client.connect(err => {
         const collection = client.db("praisedb").collection("songs");

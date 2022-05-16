@@ -17,6 +17,13 @@ input.songSearchBar {
     font-size: 17px;
 }
 
+.tableWrapper {
+    height: 35rem;
+    overflow: auto;
+} /* hide scrollbar */
+.tableWrapper::-webkit-scrollbar { display: none; /* Chrome, Safari and Opera */}
+.tableWrapper { -ms-overflow-style: none;  /* IE and Edge */ scrollbar-width: none;  /* Firefox */}
+
 .table>:not(caption)>*>* {
     background-color: white;
 }
