@@ -53,7 +53,7 @@ class SelectedSongs extends React.Component {
                             <ListGroup variant="flush">
                                 {this.props.selectedSongs.map((song, index) => {
                                     return (
-                                        <ListGroup.Item key={index + "-" + song.id}>
+                                        <ListGroup.Item key={index + "-" + song._id}>
                                             {song.title} - {song.artist}
                                             <Button
                                                 variant="outline-danger" size="sm" className="float-sm-end"

@@ -5,7 +5,7 @@ import { titleSlideStyle, lyricSlideStyle } from './slidesStyles.js'
 async function makeSlides(selectedSongs) {
     // get lyrics
     const selectedSongIds = [];
-    selectedSongs.forEach(song => selectedSongIds.push(song.id))
+    selectedSongs.forEach(song => selectedSongIds.push(song._id).toString())
 
     const response = await fetch("/lyrics?songs=" + selectedSongIds.toString());
     const selectedSongLyrics = await response.json();
@@ -15,7 +15,7 @@ async function makeSlides(selectedSongs) {
     const orderedSongLyrics = [];
     selectedSongIds.forEach(songId => {
         orderedSongLyrics.push(
-            selectedSongLyrics.find(song => song.id === songId)
+            selectedSongLyrics.find(song => song._id.toString() === songId)
         )
     });
 

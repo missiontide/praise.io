@@ -53,6 +53,7 @@ class App extends React.Component {
     }
 
     // handles selected song remove click
+    // removes song at index of selectedSongs
     handleRemove(idx) {
         const selectedSongs = this.state.selectedSongs.filter((_, i) => {return i !== idx});
 
@@ -83,7 +84,7 @@ class App extends React.Component {
                 {this.state.loading && (
                     <div id="loadingOverlay">
                         <div>
-                            <h3 class="loadingText">Creating worship slides...</h3>
+                            <h3 className="loadingText">Creating worship slides...</h3>
                             <ProgressBar animated now={65}/>
                         </div>
                     </div>)

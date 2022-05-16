@@ -13,7 +13,7 @@ app.use(cors());
 const data = require("./songs");
 
 // mongoDB connection settings
-const { MongoClient, ServerApiVersion } = require('mongodb');
+const { MongoClient, ServerApiVersion, ObjectId} = require('mongodb');
 const assert = require('assert');
 const uri = require("./privateServerInfo");
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
@@ -24,7 +24,7 @@ app.get("/songs", function(req, res) {
         const collection = client.db("praisedb").collection("songs");
         // perform actions on the collection object
         collection.find().project(
-            {id:1, title:1, artist:1}
+            {_id:1, title:1, artist:1}
         ).sort(
             {title: 1, artist: 1}
         ).toArray(function(err, result) {
@@ -42,14 +42,17 @@ app.get("/lyrics", (req, res) => {
         res.status(404).end();
         return;
     }
-    const selectedSongIds = req.query.songs.split(",").map(Number);
-
+    console.log(req.query.songs);
+    const selectedSongIds = req.query.songs.split(",");
+    console.log(selectedSongIds);
+    const selectedSongObjIds = selectedSongIds.map(id => new ObjectId(id));
+    console.log(selectedSongObjIds);
     // get selected songs from mongoDB
     client.connect(err => {
         const collection = client.db("praisedb").collection("songs");
         // perform actions on the collection object
         collection.find(
-            {id: {$in : selectedSongIds}}
+            {_id: {$in : selectedSongObjIds}}
         ).toArray(function(err, result) {
             if (err) throw err;
             res.json(result);
