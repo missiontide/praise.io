@@ -21,6 +21,7 @@
     "autoprefixer": "10.4.5"
   },
   "scripts": {
+    "deploy": "git checkout production && git fetch origin && git merge origin/main && git push",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
