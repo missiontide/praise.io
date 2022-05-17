@@ -7,7 +7,7 @@ async function makeSlides(selectedSongs) {
     const selectedSongIds = [];
     selectedSongs.forEach(song => selectedSongIds.push(song._id).toString())
 
-    const response = await fetch("/lyrics?songs=" + selectedSongIds.toString());
+    const response = await fetch((process.env.NODE_ENV === "production" ? "https://praiseio-server.herokuapp.com/" : "") + "/lyrics?songs=" + selectedSongIds.toString());
     const selectedSongLyrics = await response.json();
 
     // DB pulls songs in id order

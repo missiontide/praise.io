@@ -2,7 +2,7 @@
   "name": "praise.io",
   "version": "0.1.0",
   "private": true,
-  "proxy": "https://praiseio-server.herokuapp.com/",
+  "proxy": "http://localhost:5000",
   "dependencies": {
     "@fontsource/montserrat": "^4.5.10",
     "@testing-library/jest-dom": "^5.16.4",

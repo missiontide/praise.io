@@ -28,7 +28,7 @@ class App extends React.Component {
     componentDidMount() {
         // function to make GET request to server for api
         const getData = async () => {
-            const response = await fetch("/songs");
+            const response = await fetch((process.env.NODE_ENV === "production" ? "https://praiseio-server.herokuapp.com/" : "") + "/songs");
             const data = await response.json();
 
             this.setState({songs: data});
