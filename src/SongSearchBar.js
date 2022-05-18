@@ -1,5 +1,5 @@
 import React from 'react';
-import { Table, Button } from "react-bootstrap";
+import { Table, Button, Spinner } from "react-bootstrap";
 import Fuse from 'fuse.js';
 import './SongSearchBar.css';
 import dropShadow from "./dropshadow.png";
@@ -63,6 +63,14 @@ class SongSearchBar extends React.Component {
                 <div>
                     <img src={dropShadow} alt="drop shadow" />
                 </div>
+
+                {/* Loading Animation while songlist is being pulled from backend*/}
+                {this.props.songs.length === 0 && (
+                    <div>
+                        <Spinner animation="border" variant="light" />
+                        <p>Loading Songs...</p>
+                    </div>
+                )}
 
 
                 {songsToDisplay.length !== 0 &&
