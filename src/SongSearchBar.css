@@ -20,10 +20,12 @@ input.songSearchBar {
 .tableWrapper {
     height: 35rem;
     overflow: auto;
-} /* hide scrollbar */
-.tableWrapper::-webkit-scrollbar { display: none; /* Chrome, Safari and Opera */}
-.tableWrapper { -ms-overflow-style: none;  /* IE and Edge */ scrollbar-width: none;  /* Firefox */}
-
+    width: 669px;
+    margin: 0 auto;
+}
+::-webkit-scrollbar { width: 10px; }
+::-webkit-scrollbar-thumb { background: #212529; }
+::-webkit-scrollbar-thumb:hover { background: #131314; }
 .table>:not(caption)>*>* {
     background-color: white;
 }
