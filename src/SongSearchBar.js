@@ -1,5 +1,6 @@
 import React from 'react';
 import { Table, Button } from "react-bootstrap";
+import Fuse from 'fuse.js';
 import './SongSearchBar.css';
 import dropShadow from "./dropshadow.png";
 
@@ -19,16 +20,32 @@ class SongSearchBar extends React.Component {
         });
     };
 
+    // searches all songs based on searchInput
+    // returns a song object array sorted by matching score
+    searchSongs() {
+        // Fuse search options
+        const options = {
+            keys: [
+                {name: 'title', weight: 0.65},
+                {name: 'artist', weight: 0.35}],
+            threshold: 0.4,
+        }
+
+        const allSongs = this.props.songs;
+        const fuseSearch = new Fuse(allSongs, options)
+        const searchResult = fuseSearch.search(this.state.searchInput)
+
+        // fuse returns objects sorted by match .score, the object is in .item
+        return searchResult.map(result => result['item'])
+    }
+
     render() {
 
         let songsToDisplay = [];
 
         if (this.state.searchInput.length > 0) {
             // match song titles/artists with search input
-            songsToDisplay = this.props.songs.filter((song) => {
-                return song.title.toLowerCase().match(this.state.searchInput.toLowerCase())
-                    || song.artist.toLowerCase().match(this.state.searchInput.toLowerCase());
-            })
+            songsToDisplay = this.searchSongs();
         }
 
         return (
