@@ -7,6 +7,9 @@ import SongSearchBar from "./SongSearchBar";
 import SelectedSongs from "./SelectedSongs";
 import makeSlides from "./makeSlides";
 import {ProgressBar, Toast, ToastContainer} from "react-bootstrap";
+import { DndContext, closestCenter, KeyboardSensor, PointerSensor, useSensor, useSensors } from '@dnd-kit/core';
+import { arrayMove, SortableContext, sortableKeyboardCoordinates, verticalListSortingStrategy,} from '@dnd-kit/sortable';
+
 
 class App extends React.Component {
     constructor(props) {

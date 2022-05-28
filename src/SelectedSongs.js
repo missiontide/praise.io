@@ -50,6 +50,7 @@ class SelectedSongs extends React.Component {
                     <Offcanvas.Body>
                         <Card style={{ width: '22.5rem' }}>
                             <Card.Header>{noSongsSelected ? "Selected Songs" : "Select a song"}</Card.Header>
+                            {/* song list */}
                             <ListGroup variant="flush">
                                 {this.props.selectedSongs.map((song, index) => {
                                     return (
@@ -66,6 +67,7 @@ class SelectedSongs extends React.Component {
                                 })}
                             </ListGroup>
                         </Card>
+                        {/* Add more songs button (closes Offcanvas) */}
                         {this.props.selectedSongs.length < 10 &&
                             <Button variant="dark"
                                     style={{"margin-top": "10px", "margin-left": "12rem"}}
@@ -74,7 +76,7 @@ class SelectedSongs extends React.Component {
                                 {noSongsSelected ? "Add a song >" : "Add more songs >"}
                             </Button>
                         }
-
+                        {/* make slides button */}
                         {makeSlidesButton}
 
                     </Offcanvas.Body>
