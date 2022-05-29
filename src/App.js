@@ -6,9 +6,8 @@ import React, { useState, useEffect } from 'react';
 import SongSearchBar from "./SongSearchBar";
 import SelectedSongs from "./SelectedSongs";
 import makeSlides from "./makeSlides";
-import {ProgressBar, Toast, ToastContainer} from "react-bootstrap";
-import { DndContext, closestCenter, KeyboardSensor, PointerSensor, useSensor, useSensors } from '@dnd-kit/core';
-import { arrayMove, SortableContext, sortableKeyboardCoordinates, verticalListSortingStrategy,} from '@dnd-kit/sortable';
+import { ProgressBar, Toast, ToastContainer } from "react-bootstrap";
+import { DragDropContext } from "react-beautiful-dnd";
 
 
 export default function App() {
@@ -66,6 +65,19 @@ export default function App() {
         });
     }
 
+    // handle drag-and-drop ordering
+    function onDragEnd(result) {
+        const {destination, source} = result;
+        if (!destination) return; // wasn't dropped into a droppable
+        if (destination.droppableId === source.droppableId && destination.index === source.index) return;
+
+        const newSelectedSongs = Array.from(selectedSongs);
+        const songToMove = selectedSongs[source.index];
+        newSelectedSongs.splice(source.index, 1); // remove
+        newSelectedSongs.splice(destination.index, 0, songToMove) // insert
+
+        setSelectedSongs(newSelectedSongs);
+    }
 
     return (
         <div className="App">
@@ -103,15 +115,17 @@ export default function App() {
             <header className="App-header">
                 <img src={logo} className="App-logo" alt="logo" />
             </header>
-            <SelectedSongs
-                selectedSongs={selectedSongs}
-                onClick={(idx) => handleRemoveSong(idx)}
-                onShow={() => setShowCanvas(true)}
-                onHide={() => setShowCanvas(false)}
-                show={showCanvas}
-                makeSlides={() => handleSubmit()}
-                slidesCreated={slidesCreated}
-            />
+            <DragDropContext onDragEnd={onDragEnd}>
+                <SelectedSongs
+                    selectedSongs={selectedSongs}
+                    onClick={(idx) => handleRemoveSong(idx)}
+                    onShow={() => setShowCanvas(true)}
+                    onHide={() => setShowCanvas(false)}
+                    show={showCanvas}
+                    makeSlides={() => handleSubmit()}
+                    slidesCreated={slidesCreated}
+                />
+            </DragDropContext>
             <SongSearchBar
                 songs={songs}
                 onClick={(song) => handleAddSong(song)}
