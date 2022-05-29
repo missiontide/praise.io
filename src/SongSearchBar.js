@@ -1,5 +1,5 @@
 import React from 'react';
-import { Table, Button, Spinner } from "react-bootstrap";
+import { Table, Button, Spinner, Image, Form } from "react-bootstrap";
 import Fuse from 'fuse.js';
 import './SongSearchBar.css';
 import dropShadow from "./dropshadow.png";
@@ -50,8 +50,9 @@ class SongSearchBar extends React.Component {
 
         return (
             <div>
+                {/* Search Bar */}
                 <div>
-                    <input
+                    <Form.Control
                         className="songSearchBar"
                         type="search"
                         placeholder="type a song or artist..."
@@ -61,10 +62,11 @@ class SongSearchBar extends React.Component {
                     />
                 </div>
                 <div>
-                    <img src={dropShadow} alt="drop shadow" />
+                    {/* drop shadow image */}
+                    <Image src={dropShadow} alt="drop shadow" fluid />
                 </div>
 
-                {/* Loading Animation while songlist is being pulled from backend*/}
+                {/* Initializing loading animation while song list is being pulled from backend*/}
                 {this.props.songs.length === 0 && (
                     <div>
                         <Spinner animation="border" variant="light" />
@@ -72,7 +74,7 @@ class SongSearchBar extends React.Component {
                     </div>
                 )}
 
-
+                {/* Table of Song Results */}
                 {songsToDisplay.length !== 0 &&
                     (<>
                     <div className="tableWrapper">
@@ -99,7 +101,8 @@ class SongSearchBar extends React.Component {
                             })}
                             </tbody>
                         </Table>
-                    <img src={dropShadow} alt="drop shadow" />
+                    {/* drop shadow image */}
+                    <Image src={dropShadow} alt="drop shadow" fluid />
                     </div>
                     </>)
                 }

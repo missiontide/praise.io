@@ -38,7 +38,7 @@ export default function SelectedSongs(props) {
                                                     <ListGroup.Item ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
                                                         {song.title} - {song.artist}
                                                         <Button
-                                                            variant="outline-danger" size="sm" className="float-sm-end"
+                                                            variant="outline-danger" size="sm" className="float-end"
                                                             onClick={() => props.onClick(index)}
                                                         >
                                                             x
@@ -56,7 +56,8 @@ export default function SelectedSongs(props) {
                     {/* Add more songs button (closes Offcanvas) */}
                     {props.selectedSongs.length < 10 &&
                         <Button variant="dark"
-                                style={{"marginTop": "10px", "marginLeft": "12rem"}}
+                                size="sm"
+                                style={{"marginTop": "10px", "marginLeft": "13rem"}}
                                 onClick={props.onHide}
                         >
                             {noSongsSelected ? "Add a song >" : "Add more songs >"}
