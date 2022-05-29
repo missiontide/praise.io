@@ -6,7 +6,7 @@ import React, { useState, useEffect } from 'react';
 import SongSearchBar from "./SongSearchBar";
 import SelectedSongs from "./SelectedSongs";
 import makeSlides from "./makeSlides";
-import { ProgressBar, Toast, ToastContainer } from "react-bootstrap";
+import {ProgressBar, Toast, ToastContainer, Image} from "react-bootstrap";
 import { DragDropContext } from "react-beautiful-dnd";
 
 
@@ -113,7 +113,7 @@ export default function App() {
 
 
             <header className="App-header">
-                <img src={logo} className="App-logo" alt="logo" />
+                <Image src={logo} className="App-logo" alt="logo" fluid />
             </header>
             <DragDropContext onDragEnd={onDragEnd}>
                 <SelectedSongs

@@ -1,5 +1,6 @@
 input.songSearchBar {
-    width: 652px;
+    margin: 0 auto;
+    max-width: 652px;
     height: 69px;
     font-size: 21px;
     font-weight: bold;
@@ -11,8 +12,8 @@ input.songSearchBar {
 }
 
 .table {
-    margin: 20px auto 0;
-    width: 652px;
+    margin: auto 0;
+    max-width: 652px;
     vertical-align: middle;
     font-size: 17px;
 }
@@ -20,7 +21,7 @@ input.songSearchBar {
 .tableWrapper {
     height: 35rem;
     overflow: auto;
-    width: 669px;
+    max-width: 669px;
     margin: 0 auto;
 }
 ::-webkit-scrollbar { width: 10px; }
